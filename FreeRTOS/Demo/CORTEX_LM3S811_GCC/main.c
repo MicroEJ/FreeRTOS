@@ -150,10 +150,13 @@ int puts(const char *s) {
 }
 
 #include <stdio.h>
+#include "sni.h"
 
 int main( void )
 {
        printf("Hello, World! printf function is working.\n");
+
+       SNI_startVM(SNI_createVM(), 0, NULL);
 
 	/* Configure the clocks, UART and GPIO. */
 	prvSetupHardware();
