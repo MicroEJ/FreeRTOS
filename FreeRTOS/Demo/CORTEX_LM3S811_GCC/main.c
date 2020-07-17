@@ -149,9 +149,11 @@ int puts(const char *s) {
     return putchar('\n');
 }
 
+#include <stdio.h>
+
 int main( void )
 {
-    puts("Hello, World! puts function is working.");
+       printf("Hello, World! printf function is working.\n");
 
 	/* Configure the clocks, UART and GPIO. */
 	prvSetupHardware();
