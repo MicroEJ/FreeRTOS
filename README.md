@@ -1,3 +1,9 @@
+# /!\ Note on this branch /!\
+
+This branch is the result of the MicroEJ Tutorial [How to Create a MicroEJ Firmware From Scratch](https://docs.microej.com/en/latest/Tutorials/tutorialCreateFirmwareFromScratch.html). Check it out to understand how to create a MicroEJ Firmware from scratch based on QEMU and FreeRTOS.
+
+---
+
 ## Getting started
 The easiest way to use FreeRTOS is to start with one of the pre-configured demo application projects (found in the FreeRTOS/Demo directory).  That way you will have the correct FreeRTOS source files included, and the correct include paths configured.  Once a demo application is building and executing you can remove the demo application files, and start to add in your own application source files.  See the [FreeRTOS Kernel Quick Start Guide](https://www.freertos.org/FreeRTOS-quick-start-guide.html) for detailed instructions and other useful links.
 
