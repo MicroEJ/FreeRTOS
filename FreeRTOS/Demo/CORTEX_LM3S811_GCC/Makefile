@@ -29,8 +29,10 @@ RTOS_SOURCE_DIR=../../Source
 DEMO_SOURCE_DIR=../Common/Minimal
 
 CFLAGS+=-I hw_include -I . -I ${RTOS_SOURCE_DIR}/include -I ${RTOS_SOURCE_DIR}/portable/GCC/ARM_CM3 -I ../Common/include -D GCC_ARMCM3_LM3S102 -D inline=
+CFLAGS+= -I microej/inc
 
 VPATH=${RTOS_SOURCE_DIR}:${RTOS_SOURCE_DIR}/portable/MemMang:${RTOS_SOURCE_DIR}/portable/GCC/ARM_CM3:${DEMO_SOURCE_DIR}:init:hw_include
+VPATH+= microej/src
 
 OBJS=${COMPILER}/main.o	\
 	  ${COMPILER}/list.o    \
@@ -44,9 +46,12 @@ OBJS=${COMPILER}/main.o	\
 	  ${COMPILER}/semtest.o \
 	  ${COMPILER}/osram96x16.o
 
+OBJS+= ${COMPILER}/LLBSP.o ${COMPILER}/LLMJVM_stub.o
+
 INIT_OBJS= ${COMPILER}/startup.o
 
 LIBS= hw_include/libdriver.a
+LIBS+= microej/lib/microejruntime.a microej/lib/microejapp.o
 
 
 #
