@@ -196,13 +196,13 @@ ifeq (${COMPILER}, gcc)
 	     echo ${LD} -T ${SCATTER_${notdir ${@:.axf=}}}    \
 	                --entry ${ENTRY_${notdir ${@:.axf=}}} \
 	                ${LDFLAGSgcc_${notdir ${@:.axf=}}}    \
-	                ${LDFLAGS} -o ${@} ${^}               \
-	                '${LIBC}' '${LIBGCC}';                \
+                       ${LDFLAGS} -o ${@} --start-group ${^} \
+                       '${LIBC}' '${LIBGCC}' --end-group;    \
 	 fi
 	@${LD} -T ${SCATTER_${notdir ${@:.axf=}}}    \
 	       --entry ${ENTRY_${notdir ${@:.axf=}}} \
 	       ${LDFLAGSgcc_${notdir ${@:.axf=}}}    \
-	       ${LDFLAGS} -o ${@} ${^}               \
-	       '${LIBC}' '${LIBGCC}'
+              ${LDFLAGS} -o ${@} --start-group ${^} \
+              '${LIBC}' '${LIBGCC}' --end-group
 	@${OBJCOPY} -O binary ${@} ${@:.axf=.bin}
 endif
