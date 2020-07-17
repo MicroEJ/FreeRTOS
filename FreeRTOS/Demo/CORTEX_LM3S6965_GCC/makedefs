@@ -103,6 +103,11 @@ LIBGCC=${shell ${CC} -mthumb -march=armv6t2 -print-libgcc-file-name}
 LIBC=${shell ${CC} -mthumb -march=armv6t2 -print-file-name=libc.a}
 
 #
+# Get the location of libm.a from the GCC front-end.
+#
+LIBM=${shell ${CC} -mthumb -march=armv6t2 -print-file-name=libm.a}
+
+#
 # The command for extracting images from the linked executables.
 #
 OBJCOPY=arm-none-eabi-objcopy
@@ -197,12 +202,12 @@ ifeq (${COMPILER}, gcc)
 	                --entry ${ENTRY_${notdir ${@:.axf=}}} \
 	                ${LDFLAGSgcc_${notdir ${@:.axf=}}}    \
                        ${LDFLAGS} -o ${@} --start-group ${^} \
-                       '${LIBC}' '${LIBGCC}' --end-group;    \
+                       '${LIBM}' '${LIBC}' '${LIBGCC}' --end-group; \
 	 fi
 	@${LD} -T ${SCATTER_${notdir ${@:.axf=}}}    \
 	       --entry ${ENTRY_${notdir ${@:.axf=}}} \
 	       ${LDFLAGSgcc_${notdir ${@:.axf=}}}    \
               ${LDFLAGS} -o ${@} --start-group ${^} \
-              '${LIBC}' '${LIBGCC}' --end-group
+              '${LIBM}' '${LIBC}' '${LIBGCC}' --end-group;
 	@${OBJCOPY} -O binary ${@} ${@:.axf=.bin}
 endif
