@@ -108,6 +108,11 @@ LIBC=${shell ${CC} -mthumb -march=armv6t2 -print-file-name=libc.a}
 LIBM=${shell ${CC} -mthumb -march=armv6t2 -print-file-name=libm.a}
 
 #
+# Get the location of libnosys.a from the GCC front-end.
+#
+LIBNOSYS=${shell ${CC} -mthumb -march=armv6t2 -print-file-name=libnosys.a}
+
+#
 # The command for extracting images from the linked executables.
 #
 OBJCOPY=arm-none-eabi-objcopy
@@ -202,12 +207,12 @@ ifeq (${COMPILER}, gcc)
 	                --entry ${ENTRY_${notdir ${@:.axf=}}} \
 	                ${LDFLAGSgcc_${notdir ${@:.axf=}}}    \
                        ${LDFLAGS} -o ${@} --start-group ${^} \
-                       '${LIBM}' '${LIBC}' '${LIBGCC}' --end-group; \
+                       '${LIBNOSYS}' '${LIBM}' '${LIBC}' '${LIBGCC}' --end-group; \
 	 fi
 	@${LD} -T ${SCATTER_${notdir ${@:.axf=}}}    \
 	       --entry ${ENTRY_${notdir ${@:.axf=}}} \
 	       ${LDFLAGSgcc_${notdir ${@:.axf=}}}    \
               ${LDFLAGS} -o ${@} --start-group ${^} \
-              '${LIBM}' '${LIBC}' '${LIBGCC}' --end-group;
+              '${LIBNOSYS}' '${LIBM}' '${LIBC}' '${LIBGCC}' --end-group;
 	@${OBJCOPY} -O binary ${@} ${@:.axf=.bin}
 endif
