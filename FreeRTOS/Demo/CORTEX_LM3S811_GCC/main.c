@@ -134,9 +134,25 @@ SemaphoreHandle_t xButtonSemaphore;
 QueueHandle_t xPrintQueue;
 
 /*-----------------------------------------------------------*/
+#define UART0BASE ((volatile int*) 0x4000C000)
+
+int putchar (int c){
+    (*UART0BASE) = c;
+    return c;
+}
+
+int puts(const char *s) {
+    while (*s) {
+        putchar(*s);
+        s++;
+    }
+    return putchar('\n');
+}
 
 int main( void )
 {
+    puts("Hello, World! puts function is working.");
+
 	/* Configure the clocks, UART and GPIO. */
 	prvSetupHardware();
 
